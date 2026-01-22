@@ -9,6 +9,7 @@ export interface Model {
 // Create Anthropic provider using ANTHROPIC_API_KEY
 const anthropic = createAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
+  baseURL: "https://api.anthropic.com/v1",
 });
 
 export const MODELS: Model[] = [
