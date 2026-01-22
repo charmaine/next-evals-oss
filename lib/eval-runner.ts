@@ -554,7 +554,7 @@ const runEvaluation = wrapTraced(async function runEvaluation(
     }
 
     lintOutput = await execAsync(
-      "cd " + projectDir + " && ../../node_modules/.bin/next lint ",
+      "cd " + projectDir + " && ../../node_modules/.bin/eslint app/",
       {
         encoding: "utf8",
       },
