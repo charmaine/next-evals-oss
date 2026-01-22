@@ -13,7 +13,7 @@ const anthropic = createAnthropic({
 
 export const MODELS: Model[] = [
   {
-    name: "Claude Sonnet",
-    model: anthropic("claude-3-5-sonnet-20241022"),
+    name: "Claude Opus 4.5",
+    model: anthropic("claude-opus-4-5-20251101"),
   },
 ];
