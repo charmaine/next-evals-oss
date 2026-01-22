@@ -270,8 +270,6 @@ function parseCliArgs(args: string[]) {
       values.verbose = true;
     } else if (arg === "--debug") {
       values.debug = true;
-    } else if (arg === "--all-models") {
-      values["all-models"] = true;
     } else if (arg === "--agent-evals") {
       values["agent-evals"] = true;
     } else if (arg === "--claude-code") {
@@ -319,7 +317,6 @@ Options:
   -v, --verbose           Show detailed logs during eval execution
       --debug             Persist output folders for debugging (don't clean up)
   -t, --threads <num>     Number of worker threads (default: 1, max: CPU cores)
-      --all-models        Run single eval with all models (default: only first model)
       --claude-code       Use Claude Code agent (requires ANTHROPIC_API_KEY, only runs agent-* evals)
       --claude-timeout    Timeout for Claude Code in ms (default: 600000 = 10 minutes)
       --pre-hook <cmd>    Command to run in sandbox before Claude Code (e.g., "npx @judegao/next-skills --agent claude")
@@ -1269,7 +1266,6 @@ class ProcessPool {
         ...(this.dryRun ? ["--dry"] : []),
         ...(this.verbose ? ["--verbose"] : []),
         ...(this.debug ? ["--debug"] : []),
-        "--all-models", // Always run all models when using process pool
       ],
       {
         stdio: "pipe", // Always pipe to capture EVAL_RESULT
@@ -1828,7 +1824,7 @@ async function main() {
                   values.dry,
                   values.verbose,
                   values.debug,
-                  values["all-models"]
+                  true
                 );
 
                 if (!values.verbose && globalProgressTracker) {
@@ -2043,7 +2039,7 @@ async function main() {
           values.dry,
           values.verbose,
           values.debug,
-          values["all-models"]
+          true
         );
         spinner.succeed(`Completed: ${evalPath}`);
       } catch (error) {
@@ -2062,7 +2058,7 @@ async function main() {
           values.dry,
           values.verbose,
           values.debug,
-          values["all-models"]
+          true
         );
         console.log(`✅ Completed: ${evalPath}`);
       } finally {
